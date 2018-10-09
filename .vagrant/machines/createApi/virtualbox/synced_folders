@@ -1,0 +1,1 @@
+{"virtualbox":{"/var/www/autoCreate":{"mount_options":["dmode=777","fmode=777","uid=0","gid=0"],"guestpath":"/var/www/autoCreate","hostpath":"C:/proseeds/workspace/auto-create","disabled":false,"__vagrantfile":true}}}
