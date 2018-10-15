@@ -34,5 +34,6 @@ app.post('/webhook',function(req, res){
         json: true
     });
     res.status(200).end();
+    console.log(res);
 });
 httpServer.listen(PORT, () => console.log('Running!!! Listenning on ' + PORT));
