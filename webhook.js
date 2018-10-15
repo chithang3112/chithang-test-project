@@ -14,7 +14,7 @@ app.post('/update-issue-backlog',function(req, res){
 	var apiKey = 'kZzCDStci3DETl1yaWoEWY9YWTnptueBwzv8mOdnccoAdLoR3pj47datZ2R51K5p';
 	var defaultUrl = 'https://esk-sys.backlog.jp/api/v2/';
 	// var action = 'issues/LW3_SHUKAN-2152'
-	var action = 'issues';
+	var action = 'projects/CHITHANG_TEST_PROJECT/activities ';
 	var params = '&projectId[]=106875';
 	// var params = '';
 	var uri = defaultUrl + action +'?apiKey='+apiKey+params;
