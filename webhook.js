@@ -9,7 +9,6 @@ var app = express();
 var httpServer = http.createServer(app);
 //webhook作成
 app.post('/webhook',function(req, res){
-	console.log(req);
     var headers = {
         'Content-Type': 'application/json',
     }
@@ -23,6 +22,7 @@ app.post('/webhook',function(req, res){
         body: body,
         json: true
     });
+    console.log(res);
     res.status(200).end();
 });
 app.get('/index',function(req, res){
