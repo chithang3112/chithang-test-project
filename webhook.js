@@ -10,13 +10,13 @@ var app = express();
 var httpServer = http.createServer(app);
 //webhook作成
 
-app.post('/webhook',function(req, res){
+app.post('/update-issue-backlog',function(req, res){
 	var apiKey = 'kZzCDStci3DETl1yaWoEWY9YWTnptueBwzv8mOdnccoAdLoR3pj47datZ2R51K5p';
 	var defaultUrl = 'https://esk-sys.backlog.jp/api/v2/';
 	// var action = 'issues/LW3_SHUKAN-2152'
-	var action = 'users';
-	// var params = '&projectId[]=73975';
-	var params = '';
+	var action = 'issues';
+	var params = '&projectId[]=106875';
+	// var params = '';
 	var uri = defaultUrl + action +'?apiKey='+apiKey+params;
 	var options = {
 	  uri: uri,
