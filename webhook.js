@@ -24,7 +24,7 @@ app.post('/update-issue-backlog',function(req, res){
 	  },
 	};
 	request.get(options, function(error, response, body){
-		console.log(body);
+		console.log(body.content);
 	});
 });
 httpServer.listen(PORT, () => console.log('Running!!! Listenning on ' + PORT));
