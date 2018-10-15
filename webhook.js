@@ -26,6 +26,6 @@ app.post('/webhook',function(req, res){
 });
 app.post('/webhook',function(req, res){
 	res.status(200).end();
-}
+});
 
 httpServer.listen(PORT, () => console.log('Running!!! Listenning on ' + PORT));
