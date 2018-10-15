@@ -25,6 +25,7 @@ app.post('/webhook',function(req, res){
     res.status(200).end();
 });
 app.get('/index',function(req, res){
+	console.log(req);
 	console.log(res);
     res.status(200).end();
 });
