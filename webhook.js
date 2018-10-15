@@ -24,7 +24,7 @@ app.post('/webhook',function(req, res){
     });
     res.status(200).end();
 });
-app.post('/webhook',function(req, res){
+app.get('/webhook',function(req, res){
 	res.status(200).end();
 });
 
