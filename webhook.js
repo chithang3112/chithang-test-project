@@ -3,6 +3,8 @@ let fs = require('fs');
 let http = require('http');
 let express = require('express');
 
+let PORT = process.env.PORT || 80;
+
 var app = express();
 var httpServer = http.createServer(app);
 //webhook作成
@@ -12,7 +14,7 @@ app.post('/webhook',function(req, res){
     }
     var body = {
     }
-    var url = 'https://api.line.me/v2/bot/message/reply';
+    var url = 'https://shou-web-hook.herokuapp.com/index';
     request({
         url: url,
         method: 'POST',
@@ -22,5 +24,8 @@ app.post('/webhook',function(req, res){
     });
     res.status(200).end();
 });
+app.post('/webhook',function(req, res){
+	res.status(200).end();
+}
 
 httpServer.listen(PORT, () => console.log('Running!!! Listenning on ' + PORT));

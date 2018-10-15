@@ -4,6 +4,8 @@ const {google} = require('googleapis');
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/drive'];
 const TOKEN_PATH = 'token.json';
+let http = require('http');
+let express = require('express');
 
 // Load client secrets from a local file.
 fs.readFile('credentialsDrive.json', (err, content) => {
