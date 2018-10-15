@@ -24,8 +24,8 @@ app.post('/webhook',function(req, res){
     });
     res.status(200).end();
 });
-app.get('/webhook',function(req, res){
-	res.status(200).end();
+app.get('/index',function(req, res){
+	console.log(res);
+    res.status(200).end();
 });
-
 httpServer.listen(PORT, () => console.log('Running!!! Listenning on ' + PORT));
