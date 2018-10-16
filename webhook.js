@@ -3,7 +3,11 @@ let fs = require('fs');
 let http = require('http');
 let express = require('express');
 var request = require('request');
-
+const readline = require('readline');
+const {google} = require('googleapis');
+// If modifying these scopes, delete token.json.
+const SCOPES = ['https://www.googleapis.com/auth/drive'];
+const TOKEN_PATH = 'token.json';
 let PORT = process.env.PORT || 80;
 
 var app = express();
