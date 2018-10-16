@@ -8,6 +8,8 @@ let PORT = process.env.PORT || 80;
 
 var app = express();
 var httpServer = http.createServer(app);
+var projectList = ['JM1','JM2','LC','LW1','LW2','LW3','P-MOVIE'];
+
 //webhook作成
 
 app.post('/update-issue-backlog',function(req, res){
