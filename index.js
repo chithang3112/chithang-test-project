@@ -68,8 +68,8 @@ function getAccessToken(oAuth2Client, callback) {
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 function doAction(auth) {
-    const drive = google.drive({version: 'v3', auth});
-    var fileMetadata = {
+  const drive = google.drive({version: 'v3', auth});
+  var fileMetadata = {
     'name': 'テストファイル',
     'mimeType': 'application/vnd.google-apps.spreadsheet',
     'parents': ['1sIP-Vlh8aFX5Zoo0PAlKfATvtHap1D6V']
