@@ -395,69 +395,21 @@ function spreadSheetActionYouKen(auth , params) {
   	}, (err, res) => {
 	    if (err) return console.log('The API returned an error: ' + err);
   	});
-	// 背景を書く
-	if (description.lastIndexOf("# 背景") != -1 && description.lastIndexOf("# 目的") != -1){
-		var haikei = description.substring(
-		    description.lastIndexOf("# 背景") + 4, 
-		    description.lastIndexOf("# 目的")
-		);
-		var haikeiRange = 'N7:W19';
-	  	var haikeiResource = {
-		    values : [
-		      [haikei]
-		    ]
-	  	}
-	  	sheets.spreadsheets.values.update({
-		    spreadsheetId: spreadsheetId,
-		    range: haikeiRange,
-		    valueInputOption : "USER_ENTERED",
-		    resource : haikeiResource,
-	  	}, (err, res) => {
-		    if (err) return console.log('The API returned an error: ' + err);
-	  	});
-  	};
-	// 目的を書く
-	if (description.lastIndexOf("# 目的") != -1 && description.lastIndexOf("# 修正方針") != -1) {
-		var mokuteki = description.substring(
-		    description.lastIndexOf("# 目的") + 4, 
-		    description.lastIndexOf("# 修正方針")
-		);
-		var mokutekiRange = 'C7:M19';
-	  	var mokutekiResource = {
-		    values : [
-		      [mokuteki]
-		    ]
-	  	}
-	  	sheets.spreadsheets.values.update({
-		    spreadsheetId: spreadsheetId,
-		    range: mokutekiRange,
-		    valueInputOption : "USER_ENTERED",
-		    resource : mokutekiResource,
-	  	}, (err, res) => {
-		    if (err) return console.log('The API returned an error: ' + err);
-	  	});
-  	};
-	// 修正方針を書く
-	if (description.lastIndexOf("# 修正方針") != -1 && description.lastIndexOf("# サーバー作業・連携サービス作業") != -1) {
-		var shuuseihoushin = description.substring(
-		    description.lastIndexOf("# 修正方針") + 6, 
-		    description.lastIndexOf("# サーバー作業・連携サービス作業")
-		);
-		var shuuseihoushinRange = 'x7:AF19';
-	  	var shuuseihoushinResource = {
-		    values : [
-		      [shuuseihoushin]
-		    ]
-	  	}
-	  	sheets.spreadsheets.values.update({
-		    spreadsheetId: spreadsheetId,
-		    range: shuuseihoushinRange,
-		    valueInputOption : "USER_ENTERED",
-		    resource : shuuseihoushinResource,
-	  	}, (err, res) => {
-		    if (err) return console.log('The API returned an error: ' + err);
-	  	});
-  	};
+	// 内容を書く
+	var naiyouRange = 'N7:AF19';
+	var naiyouResource = {
+			valueInputOption : "USER_ENTERED",
+		    data : {
+		      	range : naiyouRange,
+		      	values : [['a','b','c']],
+		      }
+	}
+	sheets.spreadsheets.values.batchUpdate({
+	    spreadsheetId: spreadsheetId,
+	    resource : naiyouResource,
+  	}, (err, res) => {
+	    if (err) return console.log('The API returned an error: ' + err);
+  	});
 }
 
 function spreadSheetActionTestShiyou(auth , params) {
