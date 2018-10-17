@@ -403,7 +403,7 @@ function spreadSheetActionYouKen(auth , params) {
 	// 背景を書く
 	if (description.lastIndexOf("# 背景") != -1 && description.lastIndexOf("# 目的") != -1){
 		var haikei = description.substring(
-		    description.lastIndexOf("# 背景") + 4, 
+		    description.lastIndexOf("# 背景") + 5, 
 		    description.lastIndexOf("# 目的")
 		);
 		var haikeiRange = 'N7:W19';
@@ -424,7 +424,7 @@ function spreadSheetActionYouKen(auth , params) {
 	// 目的を書く
 	if (description.lastIndexOf("# 目的") != -1 && description.lastIndexOf("# 修正方針") != -1) {
 		var mokuteki = description.substring(
-		    description.lastIndexOf("# 目的") + 4, 
+		    description.lastIndexOf("# 目的") + 5, 
 		    description.lastIndexOf("# 修正方針")
 		);
 		var mokutekiRange = 'C7:M19';
@@ -445,7 +445,7 @@ function spreadSheetActionYouKen(auth , params) {
 	// 修正方針を書く
 	if (description.lastIndexOf("# 修正方針") != -1 && description.lastIndexOf("# サーバー作業・連携サービス作業") != -1) {
 		var shuuseihoushin = description.substring(
-		    description.lastIndexOf("# 修正方針") + 6, 
+		    description.lastIndexOf("# 修正方針") + 7, 
 		    description.lastIndexOf("# サーバー作業・連携サービス作業")
 		);
 		var shuuseihoushinRange = 'x7:AF19';
