@@ -42,10 +42,10 @@ request.get(options, function(error, response, body){
 	request.get(options, function(error, response, body){
 		// console.log(JSON.parse(body));
 		var summary = JSON.parse(body).summary;
-		if(JSON.parse(body).assignee.name === "" || JSON.parse(body).assignee.name === null || JSON.parse(body).assignee.name === undefined){
-	        exit;
+		if('name' in JSON.parse(body).assignee){
+	        var username = JSON.parse(body).assignee.name;
 	    }else{
-	    	var username = JSON.parse(body).assignee.name;
+	    	exit;
 	    }
 		
 		var projectName = summary.substring(
