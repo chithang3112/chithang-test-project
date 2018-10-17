@@ -42,7 +42,12 @@ request.get(options, function(error, response, body){
 	request.get(options, function(error, response, body){
 		// console.log(JSON.parse(body));
 		var summary = JSON.parse(body).summary;
-		var username = JSON.parse(body).assignee.name;
+		if(data === "" || data === null || data === undefined){
+	        exit;
+	    }else{
+	    	var username = JSON.parse(body).assignee.name;
+	    }
+		
 		var projectName = summary.substring(
 		    summary.lastIndexOf("[") + 1, 
 		    summary.lastIndexOf("]")
