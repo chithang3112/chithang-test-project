@@ -75,7 +75,9 @@ request.get(options, function(error, response, body){
 					fs.readFile('credentialsDrive.json', (err, content) => {
 					  if (err) return console.log('Error loading client secret file:', err);
 					  // Authorize a client with credentials, then call the Google Drive API.
-					  authorize(JSON.parse(content), doAction , params);
+					  if(username == 'チータン'){
+					  	authorize(JSON.parse(content), doAction , params);
+					  }
 					});
 		    	}
 		    }
