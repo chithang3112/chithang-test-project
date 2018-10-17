@@ -42,7 +42,7 @@ request.get(options, function(error, response, body){
 	request.get(options, function(error, response, body){
 		// console.log(JSON.parse(body));
 		var summary = JSON.parse(body).summary;
-		if(data === "" || data === null || data === undefined){
+		if(JSON.parse(body).assignee.name === "" || JSON.parse(body).assignee.name === null || JSON.parse(body).assignee.name === undefined){
 	        exit;
 	    }else{
 	    	var username = JSON.parse(body).assignee.name;
