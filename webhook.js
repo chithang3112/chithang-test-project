@@ -17,74 +17,75 @@ var projectList = ['JM1','JM2','LC','LW1','LW2','LW3','P-MOVIE'];
 //webhook作成
 
 app.post('/update-issue-backlog',function(req, res){
-	var apiKey = 'kZzCDStci3DETl1yaWoEWY9YWTnptueBwzv8mOdnccoAdLoR3pj47datZ2R51K5p';
-var defaultUrl = 'https://esk-sys.backlog.jp/api/v2/';
-// var action = 'issues/LW3_SHUKAN-2152'
-var action = 'projects/CHITHANG_TEST_PROJECT/activities';
-var params = '';
+	console.log(req);
+// var apiKey = 'kZzCDStci3DETl1yaWoEWY9YWTnptueBwzv8mOdnccoAdLoR3pj47datZ2R51K5p';
+// var defaultUrl = 'https://esk-sys.backlog.jp/api/v2/';
+// // var action = 'issues/LW3_SHUKAN-2152'
+// var action = 'projects/CHITHANG_TEST_PROJECT/activities';
 // var params = '';
-var uri = defaultUrl + action +'?apiKey='+apiKey+params;
-var options = {
-  uri: uri,
-  headers: {
-  },
-};
-request.get(options, function(error, response, body){
-	// console.log(JSON.parse(body)[0].content.id);
-	let issueId = JSON.parse(body)[0].content.id;
-	action = 'issues/'+issueId;
-	uri = defaultUrl + action +'?apiKey='+apiKey+params;
-	options = {
-	  uri: uri,
-	  headers: {
-	  },
-	};
-	request.get(options, function(error, response, body){
-		// console.log(JSON.parse(body));
-		var summary = JSON.parse(body).summary;
-		if(JSON.parse(body).hasOwnProperty('assignee')){
-			if(JSON.parse(body).assignee != null){
-	        	var username = JSON.parse(body).assignee.name;
-	    	}
-	    }else{
-	    	username = '';
-	    }
+// // var params = '';
+// var uri = defaultUrl + action +'?apiKey='+apiKey+params;
+// var options = {
+//   uri: uri,
+//   headers: {
+//   },
+// };
+// request.get(options, function(error, response, body){
+// 	// console.log(JSON.parse(body)[0].content.id);
+// 	let issueId = JSON.parse(body)[0].content.id;
+// 	action = 'issues/'+issueId;
+// 	uri = defaultUrl + action +'?apiKey='+apiKey+params;
+// 	options = {
+// 	  uri: uri,
+// 	  headers: {
+// 	  },
+// 	};
+// 	request.get(options, function(error, response, body){
+// 		// console.log(JSON.parse(body));
+// 		var summary = JSON.parse(body).summary;
+// 		if(JSON.parse(body).hasOwnProperty('assignee')){
+// 			if(JSON.parse(body).assignee != null){
+// 	        	var username = JSON.parse(body).assignee.name;
+// 	    	}
+// 	    }else{
+// 	    	username = '';
+// 	    }
 		
-		var projectName = summary.substring(
-		    summary.lastIndexOf("[") + 1, 
-		    summary.lastIndexOf("]")
-		);
-		var dueDate = summary.substring(
-		    summary.lastIndexOf("【") + 4, 
-		    summary.lastIndexOf("】")
-		);
-		var title = summary.substring(
-		    summary.lastIndexOf("】") + 1
-		);
-		var description = JSON.parse(body).description;
-		for (var i = 0; i < projectList.length; i++) { 
-		    var num = projectName.search(projectList[i]);
-		    if(num != -1){
-		    	if(dueDate !== ''){
-		    		dueDate = dueDate.substr(0, 4) + '/' + dueDate.substr(4);
-		    		var releaseDate = dueDate.substr(0, 7) + '/' + dueDate.substr(7);
-		    		backlogApiParams = [projectList[i],releaseDate,username,title];
-		    		var params = {
-		    			detail : backlogApiParams,
-		    			description : description,
-		    		}
-				  	if(username == 'チータン'){
-				    	// Load client secrets from a local file.
-						fs.readFile('credentialsDrive.json', (err, content) => {
-						  if (err) return console.log('Error loading client secret file:', err);
-						  // Authorize a client with credentials, then call the Google Drive API.
-						  	authorize(JSON.parse(content), doAction , params);
-						});
-					}
-		    	}
-		    }
-		}
-	});
+// 		var projectName = summary.substring(
+// 		    summary.lastIndexOf("[") + 1, 
+// 		    summary.lastIndexOf("]")
+// 		);
+// 		var dueDate = summary.substring(
+// 		    summary.lastIndexOf("【") + 4, 
+// 		    summary.lastIndexOf("】")
+// 		);
+// 		var title = summary.substring(
+// 		    summary.lastIndexOf("】") + 1
+// 		);
+// 		var description = JSON.parse(body).description;
+// 		for (var i = 0; i < projectList.length; i++) { 
+// 		    var num = projectName.search(projectList[i]);
+// 		    if(num != -1){
+// 		    	if(dueDate !== ''){
+// 		    		dueDate = dueDate.substr(0, 4) + '/' + dueDate.substr(4);
+// 		    		var releaseDate = dueDate.substr(0, 7) + '/' + dueDate.substr(7);
+// 		    		backlogApiParams = [projectList[i],releaseDate,username,title];
+// 		    		var params = {
+// 		    			detail : backlogApiParams,
+// 		    			description : description,
+// 		    		}
+// 				  	if(username == 'チータン'){
+// 				    	// Load client secrets from a local file.
+// 						fs.readFile('credentialsDrive.json', (err, content) => {
+// 						  if (err) return console.log('Error loading client secret file:', err);
+// 						  // Authorize a client with credentials, then call the Google Drive API.
+// 						  	authorize(JSON.parse(content), doAction , params);
+// 						});
+// 					}
+// 		    	}
+// 		    }
+// 		}
+// 	});
 });
 
 
