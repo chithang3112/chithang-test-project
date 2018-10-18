@@ -42,11 +42,10 @@ request.get(options, function(error, response, body){
 	request.get(options, function(error, response, body){
 		// console.log(JSON.parse(body));
 		var summary = JSON.parse(body).summary;
-		console.log(JSON.parse(body));exit;
 		if(JSON.parse(body).hasOwnProperty(assignee)){
 	        var username = JSON.parse(body).assignee.name;
 	    }else{
-	    	exit;
+	    	username = '';
 	    }
 		
 		var projectName = summary.substring(
