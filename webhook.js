@@ -42,8 +42,10 @@ request.get(options, function(error, response, body){
 	request.get(options, function(error, response, body){
 		// console.log(JSON.parse(body));
 		var summary = JSON.parse(body).summary;
-		if(JSON.parse(body).hasOwnProperty('assignee') && JSON.parse(body).assignee.hasOwnProperty('name')){
-	        var username = JSON.parse(body).assignee.name;
+		if(JSON.parse(body).hasOwnProperty('assignee')){
+			if(JSON.parse(body).assignee.hasOwnProperty('name')){
+	        	var username = JSON.parse(body).assignee.name;
+	    	}
 	    }else{
 	    	username = '';
 	    }
