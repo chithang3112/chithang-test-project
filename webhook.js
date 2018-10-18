@@ -42,8 +42,7 @@ request.get(options, function(error, response, body){
 	request.get(options, function(error, response, body){
 		// console.log(JSON.parse(body));
 		var summary = JSON.parse(body).summary;
-		console.log(JSON.parse(body).assignee);
-		if(JSON.parse(body).assignee.hasOwnProperty(name)){
+		if(JSON.parse(body).hasOwnProperty(assignee)){
 	        var username = JSON.parse(body).assignee.name;
 	    }else{
 	    	exit;
