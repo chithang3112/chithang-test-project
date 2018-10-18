@@ -71,14 +71,14 @@ request.get(options, function(error, response, body){
 		    			detail : backlogApiParams,
 		    			description : description,
 		    		}
-			    	// Load client secrets from a local file.
-					fs.readFile('credentialsDrive.json', (err, content) => {
-					  if (err) return console.log('Error loading client secret file:', err);
-					  // Authorize a client with credentials, then call the Google Drive API.
-					  if(username == 'チータン'){
-					  	authorize(JSON.parse(content), doAction , params);
-					  }
-					});
+				  	if(username == 'チータン'){
+				    	// Load client secrets from a local file.
+						fs.readFile('credentialsDrive.json', (err, content) => {
+						  if (err) return console.log('Error loading client secret file:', err);
+						  // Authorize a client with credentials, then call the Google Drive API.
+						  	authorize(JSON.parse(content), doAction , params);
+						});
+					}
 		    	}
 		    }
 		}
