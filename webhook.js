@@ -15,7 +15,11 @@ var httpServer = http.createServer(app);
 var projectList = ['JM1','JM2','LC','LW1','LW2','LW3','P-MOVIE'];
 
 //webhook作成
-
+app.post('/index',function(req, res){
+	console.log(req);
+	console.log("----------------------------");
+	console.log(res);
+});
 app.post('/update-issue-backlog',function(req, res){
 var defaultUrl = 'https://esk-sys.backlog.jp/api/v2/';
 // var action = 'issues/LW3_SHUKAN-2152'
