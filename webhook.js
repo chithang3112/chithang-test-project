@@ -15,7 +15,7 @@ var httpServer = http.createServer(app);
 var projectList = ['JM1','JM2','LC','LW1','LW2','LW3','P-MOVIE'];
 
 //webhook作成
-app.get('/index',function(req, res){
+app.post('/index',function(req, res){
 	console.log(res.statusCode);
 	console.log("----------------------------");
 	console.log(res.body);
