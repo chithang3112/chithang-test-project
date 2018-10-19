@@ -413,7 +413,6 @@ function spreadSheetActionYouKen(auth , params) {
   	});
 	// 目的を書く
 	var mokuteki = description.match(/# 目的\n(.*?)\n#/i)[1];
-	console.log(mokuteki);
 	var mokutekiRange = 'C7:M19';
   	var mokutekiResource = {
 	    values : [

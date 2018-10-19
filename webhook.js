@@ -426,7 +426,7 @@ function spreadSheetActionYouKen(auth , params) {
 	    if (err) return console.log('The API returned an error: ' + err);
   	});
 	// 目的を書く
-	var mokuteki = description.match(/# 目的(.*?)\n#/i)[1];
+	var mokuteki = description.match(/# 目的\n(.*?)\n#/i)[1];
 	var mokutekiRange = 'C7:M19';
   	var mokutekiResource = {
 	    values : [
@@ -442,7 +442,7 @@ function spreadSheetActionYouKen(auth , params) {
 	    if (err) return console.log('The API returned an error: ' + err);
   	});
 	// 修正方針を書く
-	var shuuseihoushin = description.match(/# 修正方針(.*?)\n#/i)[1];
+	var shuuseihoushin = description.match(/# 修正方針\n(.*?)\n#/i)[1];
 	var shuuseihoushinRange = 'x7:AF19';
   	var shuuseihoushinResource = {
 	    values : [
