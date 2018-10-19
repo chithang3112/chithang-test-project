@@ -410,88 +410,57 @@ function spreadSheetActionYouKen(auth , params) {
 	    if (err) return console.log('The API returned an error: ' + err);
   	});
 	// 背景を書く
-	if (description.lastIndexOf("# 背景") != -1 && description.lastIndexOf("# 目的") != -1){
-		var haikei = description.substring(
-		    description.lastIndexOf("# 背景") + 5, 
-		    description.lastIndexOf("# 目的")
-		);
-		var haikeiRange = 'N7:W19';
-	  	var haikeiResource = {
-		    values : [
-		      [haikei]
-		    ]
-	  	}
-	  	sheets.spreadsheets.values.update({
-		    spreadsheetId: spreadsheetId,
-		    range: haikeiRange,
-		    valueInputOption : "USER_ENTERED",
-		    resource : haikeiResource,
-	  	}, (err, res) => {
-		    if (err) return console.log('The API returned an error: ' + err);
-	  	});
-  	};
+	var haikei = description.match(/\# 背景(.*?)\#/i)[1];
+	var haikeiRange = 'N7:W19';
+  	var haikeiResource = {
+	    values : [
+	      [haikei]
+	    ]
+  	}
+  	sheets.spreadsheets.values.update({
+	    spreadsheetId: spreadsheetId,
+	    range: haikeiRange,
+	    valueInputOption : "USER_ENTERED",
+	    resource : haikeiResource,
+  	}, (err, res) => {
+	    if (err) return console.log('The API returned an error: ' + err);
+  	});
 	// 目的を書く
-	if (description.lastIndexOf("# 目的") != -1 && description.lastIndexOf("# 修正方針") != -1) {
-		var mokuteki = description.substring(
-		    description.lastIndexOf("# 目的") + 5, 
-		    description.lastIndexOf("# 修正方針")
-		);
-		var mokutekiRange = 'C7:M19';
-	  	var mokutekiResource = {
-		    values : [
-		      [mokuteki]
-		    ]
-	  	}
-	  	sheets.spreadsheets.values.update({
-		    spreadsheetId: spreadsheetId,
-		    range: mokutekiRange,
-		    valueInputOption : "USER_ENTERED",
-		    resource : mokutekiResource,
-	  	}, (err, res) => {
-		    if (err) return console.log('The API returned an error: ' + err);
-	  	});
-  	};
+	var mokuteki = description.match(/\# 目的(.*?)\#/i)[1];
+	var mokutekiRange = 'C7:M19';
+  	var mokutekiResource = {
+	    values : [
+	      [mokuteki]
+	    ]
+  	}
+  	sheets.spreadsheets.values.update({
+	    spreadsheetId: spreadsheetId,
+	    range: mokutekiRange,
+	    valueInputOption : "USER_ENTERED",
+	    resource : mokutekiResource,
+  	}, (err, res) => {
+	    if (err) return console.log('The API returned an error: ' + err);
+  	});
 	// 修正方針を書く
-	if (description.lastIndexOf("# 修正方針") != -1 && description.lastIndexOf("# サーバー作業・連携サービス作業") != -1) {
-		var shuuseihoushin = description.substring(
-		    description.lastIndexOf("# 修正方針") + 7, 
-		    description.lastIndexOf("# サーバー作業・連携サービス作業")
-		);
-		var shuuseihoushinRange = 'x7:AF19';
-	  	var shuuseihoushinResource = {
-		    values : [
-		      [shuuseihoushin]
-		    ]
-	  	}
-	  	sheets.spreadsheets.values.update({
-		    spreadsheetId: spreadsheetId,
-		    range: shuuseihoushinRange,
-		    valueInputOption : "USER_ENTERED",
-		    resource : shuuseihoushinResource,
-	  	}, (err, res) => {
-		    if (err) return console.log('The API returned an error: ' + err);
-	  	});
-  	};
+	var shuuseihoushin = description.match(/\# 修正方針(.*?)\#/i)[1];
+	var shuuseihoushinRange = 'x7:AF19';
+  	var shuuseihoushinResource = {
+	    values : [
+	      [shuuseihoushin]
+	    ]
+  	}
+  	sheets.spreadsheets.values.update({
+	    spreadsheetId: spreadsheetId,
+	    range: shuuseihoushinRange,
+	    valueInputOption : "USER_ENTERED",
+	    resource : shuuseihoushinResource,
+  	}, (err, res) => {
+	    if (err) return console.log('The API returned an error: ' + err);
+  	});
 }
 
 function spreadSheetActionTestShiyou(auth , params) {
 	const sheets = google.sheets({version: 'v4', auth});
-	//　担当者を書く
-	// var tantousha = detail[2];
-	// var tantoushaRange = 'C4:C4';
- //  	var tantoushaResource = {
-	//     values : [
-	//       [tantousha]
-	//     ]
- //  	}
-	// sheets.spreadsheets.values.update({
-	//     spreadsheetId: spreadsheetId,
-	//     range: tantoushaRange,
-	//     valueInputOption : "USER_ENTERED",
-	//     resource : tantoushaResource,
- //  	}, (err, res) => {
-	//     if (err) return console.log('The API returned an error: ' + err);
- //  	});
 }
 });
 httpServer.listen(PORT, () => console.log('Running!!! Listenning on ' + PORT));
