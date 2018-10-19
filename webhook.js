@@ -411,6 +411,7 @@ function spreadSheetActionYouKen(auth , params) {
   	});
 	// 背景を書く
 	var haikei = description.match(/\# 背景(.*?)\#/i)[1];
+	console.log(description.match(/\# 背景(.*?)\#/i));
 	var haikeiRange = 'N7:W19';
   	var haikeiResource = {
 	    values : [
