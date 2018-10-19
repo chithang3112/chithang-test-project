@@ -22,7 +22,7 @@ console.log(process.env);
 
 var defaultUrl = 'https://esk-sys.backlog.jp/api/v2/';
 // var action = 'issues/LW3_SHUKAN-2152'
-var action = 'projects/CHITHANG_TEST_PROJECT/activities';
+var action = process.env.ACTIVITY_ACTION;
 var params = '';
 // var params = '';
 var uri = defaultUrl + action +'?apiKey='+apiKey+params;
