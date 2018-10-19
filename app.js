@@ -15,7 +15,7 @@ var request = require('request');
 var apiKey = 'kZzCDStci3DETl1yaWoEWY9YWTnptueBwzv8mOdnccoAdLoR3pj47datZ2R51K5p';
 var defaultUrl = 'https://esk-sys.backlog.jp/api/v2/';
 // var action = 'issues/LW3_SHUKAN-2152'
-var action = 'projects/CHITHANG_TEST_PROJECT/activities';
+var action = 'projects/LW3_SHUKAN/activities';
 var params = '';
 // var params = '';
 var uri = defaultUrl + action +'?apiKey='+apiKey+params;
@@ -25,8 +25,7 @@ var options = {
   },
 };
 request.get(options, function(error, response, body){
-	// console.log(JSON.parse(body)[0].content.id);
-	let issueId = JSON.parse(body)[0].content.id;
+	let issueId = JSON.parse(body)[1].content.id;
 	action = 'issues/'+issueId;
 	uri = defaultUrl + action +'?apiKey='+apiKey+params;
 	options = {
@@ -35,7 +34,6 @@ request.get(options, function(error, response, body){
 	  },
 	};
 	request.get(options, function(error, response, body){
-		// console.log(JSON.parse(body));
 		var summary = JSON.parse(body).summary;
 		var username = JSON.parse(body).assignee.name;
 		var projectName = summary.substring(

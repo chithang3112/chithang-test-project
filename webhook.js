@@ -13,19 +13,15 @@ let PORT = process.env.PORT || 80;
 var app = express();
 var httpServer = http.createServer(app);
 var projectList = ['JM1','JM2','LC','LW1','LW2','LW3','P-MOVIE'];
-var apiKey = process.env.API_KEY;
 
 //webhook作成
 
 app.post('/update-issue-backlog',function(req, res){
-console.log(process.env);
-
 var defaultUrl = 'https://esk-sys.backlog.jp/api/v2/';
 // var action = 'issues/LW3_SHUKAN-2152'
-var action = process.env.ACTIVITY_ACTION;
 var params = '';
 // var params = '';
-var uri = defaultUrl + action +'?apiKey='+apiKey+params;
+var uri = defaultUrl + process.env.ACTIVITY_ACTION +'?apiKey='+process.env.API_KEY+params;
 var options = {
   uri: uri,
   headers: {
@@ -35,7 +31,7 @@ request.get(options, function(error, response, body){
 	// console.log(JSON.parse(body)[0].content.id);
 	let issueId = JSON.parse(body)[0].content.id;
 	action = 'issues/'+issueId;
-	uri = defaultUrl + action +'?apiKey='+apiKey+params;
+	uri = defaultUrl + action +'?apiKey='+process.env.API_KEY+params;
 	options = {
 	  uri: uri,
 	  headers: {
