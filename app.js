@@ -396,20 +396,7 @@ function spreadSheetActionYouKen(auth , params) {
 	    if (err) return console.log('The API returned an error: ' + err);
   	});
 	// 内容を書く
-	var naiyouRange = 'N7:AF19';
-	var naiyouResource = {
-			valueInputOption : "USER_ENTERED",
-		    data : {
-		      	range : naiyouRange,
-		      	values : [['a','b','c']],
-		      }
-	}
-	sheets.spreadsheets.values.batchUpdate({
-	    spreadsheetId: spreadsheetId,
-	    resource : naiyouResource,
-  	}, (err, res) => {
-	    if (err) return console.log('The API returned an error: ' + err);
-  	});
+	console.log(description.match(/# 背景\n(.*?)\n#/i));
 }
 
 function spreadSheetActionTestShiyou(auth , params) {

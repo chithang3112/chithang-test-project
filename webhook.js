@@ -410,54 +410,53 @@ function spreadSheetActionYouKen(auth , params) {
 	    if (err) return console.log('The API returned an error: ' + err);
   	});
 	// 背景を書く
-	console.log(description.match(/\# 背景(.*?)\#/i));
-	// var haikei = description.match(/\# 背景(.*?)\#/i)[1];
-	// var haikeiRange = 'N7:W19';
- //  	var haikeiResource = {
-	//     values : [
-	//       [haikei]
-	//     ]
- //  	}
- //  	sheets.spreadsheets.values.update({
-	//     spreadsheetId: spreadsheetId,
-	//     range: haikeiRange,
-	//     valueInputOption : "USER_ENTERED",
-	//     resource : haikeiResource,
- //  	}, (err, res) => {
-	//     if (err) return console.log('The API returned an error: ' + err);
- //  	});
-	// // 目的を書く
-	// var mokuteki = description.match(/\# 目的(.*?)\#/i)[1];
-	// var mokutekiRange = 'C7:M19';
- //  	var mokutekiResource = {
-	//     values : [
-	//       [mokuteki]
-	//     ]
- //  	}
- //  	sheets.spreadsheets.values.update({
-	//     spreadsheetId: spreadsheetId,
-	//     range: mokutekiRange,
-	//     valueInputOption : "USER_ENTERED",
-	//     resource : mokutekiResource,
- //  	}, (err, res) => {
-	//     if (err) return console.log('The API returned an error: ' + err);
- //  	});
-	// // 修正方針を書く
-	// var shuuseihoushin = description.match(/\# 修正方針(.*?)\#/i)[1];
-	// var shuuseihoushinRange = 'x7:AF19';
- //  	var shuuseihoushinResource = {
-	//     values : [
-	//       [shuuseihoushin]
-	//     ]
- //  	}
- //  	sheets.spreadsheets.values.update({
-	//     spreadsheetId: spreadsheetId,
-	//     range: shuuseihoushinRange,
-	//     valueInputOption : "USER_ENTERED",
-	//     resource : shuuseihoushinResource,
- //  	}, (err, res) => {
-	//     if (err) return console.log('The API returned an error: ' + err);
- //  	});
+	var haikei = description.match(/# 背景\n(.*?)\n#/i)[1];
+	var haikeiRange = 'N7:W19';
+  	var haikeiResource = {
+	    values : [
+	      [haikei]
+	    ]
+  	}
+  	sheets.spreadsheets.values.update({
+	    spreadsheetId: spreadsheetId,
+	    range: haikeiRange,
+	    valueInputOption : "USER_ENTERED",
+	    resource : haikeiResource,
+  	}, (err, res) => {
+	    if (err) return console.log('The API returned an error: ' + err);
+  	});
+	// 目的を書く
+	var mokuteki = description.match(/# 目的(.*?)\n#/i)[1];
+	var mokutekiRange = 'C7:M19';
+  	var mokutekiResource = {
+	    values : [
+	      [mokuteki]
+	    ]
+  	}
+  	sheets.spreadsheets.values.update({
+	    spreadsheetId: spreadsheetId,
+	    range: mokutekiRange,
+	    valueInputOption : "USER_ENTERED",
+	    resource : mokutekiResource,
+  	}, (err, res) => {
+	    if (err) return console.log('The API returned an error: ' + err);
+  	});
+	// 修正方針を書く
+	var shuuseihoushin = description.match(/# 修正方針(.*?)\n#/i)[1];
+	var shuuseihoushinRange = 'x7:AF19';
+  	var shuuseihoushinResource = {
+	    values : [
+	      [shuuseihoushin]
+	    ]
+  	}
+  	sheets.spreadsheets.values.update({
+	    spreadsheetId: spreadsheetId,
+	    range: shuuseihoushinRange,
+	    valueInputOption : "USER_ENTERED",
+	    resource : shuuseihoushinResource,
+  	}, (err, res) => {
+	    if (err) return console.log('The API returned an error: ' + err);
+  	});
 }
 
 function spreadSheetActionTestShiyou(auth , params) {
