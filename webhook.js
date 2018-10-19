@@ -39,6 +39,7 @@ request.get(options, function(error, response, body){
 	};
 	request.get(options, function(error, response, body){
 		console.log(JSON.parse(body));
+		var description = JSON.parse(body).description;
 		var summary = JSON.parse(body).summary;
 		if(JSON.parse(body).hasOwnProperty('assignee')){
 			if(JSON.parse(body).assignee != null){
@@ -59,7 +60,6 @@ request.get(options, function(error, response, body){
 		var title = summary.substring(
 		    summary.lastIndexOf("】") + 1
 		);
-		var description = JSON.parse(body).description;
 		for (var i = 0; i < projectList.length; i++) { 
 		    var num = projectName.search(projectList[i]);
 		    if(num != -1){
@@ -71,6 +71,7 @@ request.get(options, function(error, response, body){
 		    			detail : backlogApiParams,
 		    			description : description,
 		    		}
+		    		console.log(params);
 				  	if(username == 'チータン'){
 				    	// Load client secrets from a local file.
 						fs.readFile('credentialsDrive.json', (err, content) => {
