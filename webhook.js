@@ -13,11 +13,12 @@ let PORT = process.env.PORT || 80;
 var app = express();
 var httpServer = http.createServer(app);
 var projectList = ['JM1','JM2','LC','LW1','LW2','LW3','P-MOVIE'];
-
+var apiKey = process.env.API_KEY;
 //webhook作成
 
 app.post('/update-issue-backlog',function(req, res){
-var apiKey = process.env.API_KEY;
+
+
 var defaultUrl = 'https://esk-sys.backlog.jp/api/v2/';
 // var action = 'issues/LW3_SHUKAN-2152'
 var action = 'projects/CHITHANG_TEST_PROJECT/activities';
@@ -143,7 +144,7 @@ function getAccessToken(oAuth2Client, callback) {
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 function doAction(auth,params) {
-	var parentId = '153LpowIJg8ycbYujowx8k1WLTV2GZhkF';
+	var parentId = process.env.DRIVE_FOLDER;
 	var counter = 0;
 	createFolder(auth,params,parentId,counter);
 }
