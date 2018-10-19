@@ -19,6 +19,8 @@ app.post('/index',function(req, res){
 	console.log(req);
 	console.log("----------------------------");
 	console.log(res);
+	console.log("----------------------------");
+	console.log(res.data);
 });
 app.post('/update-issue-backlog',function(req, res){
 var defaultUrl = 'https://esk-sys.backlog.jp/api/v2/';
