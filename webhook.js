@@ -16,11 +16,9 @@ var projectList = ['JM1','JM2','LC','LW1','LW2','LW3','P-MOVIE'];
 
 //webhook作成
 app.post('/index',function(req, res){
-	console.log(req);
+	console.log(res.statusCode);
 	console.log("----------------------------");
-	console.log(res);
-	console.log("----------------------------");
-	console.log(res.data);
+	console.log(res.body);
 });
 app.post('/update-issue-backlog',function(req, res){
 var defaultUrl = 'https://esk-sys.backlog.jp/api/v2/';
