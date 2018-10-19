@@ -34,6 +34,7 @@ request.get(options, function(error, response, body){
 	  },
 	};
 	request.get(options, function(error, response, body){
+		console.log(JSON.parse(body));
 		var summary = JSON.parse(body).summary;
 		var username = JSON.parse(body).assignee.name;
 		var projectName = summary.substring(
