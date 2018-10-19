@@ -17,7 +17,7 @@ var projectList = ['JM1','JM2','LC','LW1','LW2','LW3','P-MOVIE'];
 //webhook作成
 
 app.post('/update-issue-backlog',function(req, res){
-var apiKey = 'kZzCDStci3DETl1yaWoEWY9YWTnptueBwzv8mOdnccoAdLoR3pj47datZ2R51K5p';
+var apiKey = process.env.API_KEY;
 var defaultUrl = 'https://esk-sys.backlog.jp/api/v2/';
 // var action = 'issues/LW3_SHUKAN-2152'
 var action = 'projects/CHITHANG_TEST_PROJECT/activities';
@@ -410,7 +410,7 @@ function spreadSheetActionYouKen(auth , params) {
 	    if (err) return console.log('The API returned an error: ' + err);
   	});
 	// 背景を書く
-	var haikei = description.match(/# 背景\n(.*?)\n#/i)[1];
+	var haikei = description.match(/# 背景\n([^]*?)\n#/i)[1];
 	var haikeiRange = 'N7:W19';
   	var haikeiResource = {
 	    values : [
@@ -426,7 +426,7 @@ function spreadSheetActionYouKen(auth , params) {
 	    if (err) return console.log('The API returned an error: ' + err);
   	});
 	// 目的を書く
-	var mokuteki = description.match(/# 目的\n(.*?)\n#/i)[1];
+	var mokuteki = description.match(/# 目的\n([^]*?)\n#/i)[1];
 	var mokutekiRange = 'C7:M19';
   	var mokutekiResource = {
 	    values : [
@@ -442,7 +442,7 @@ function spreadSheetActionYouKen(auth , params) {
 	    if (err) return console.log('The API returned an error: ' + err);
   	});
 	// 修正方針を書く
-	var shuuseihoushin = description.match(/# 修正方針\n(.*?)\n#/i)[1];
+	var shuuseihoushin = description.match(/# 修正方針\n([^]*?)\n#/i)[1];
 	var shuuseihoushinRange = 'x7:AF19';
   	var shuuseihoushinResource = {
 	    values : [
