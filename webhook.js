@@ -14,10 +14,11 @@ var app = express();
 var httpServer = http.createServer(app);
 var projectList = ['JM1','JM2','LC','LW1','LW2','LW3','P-MOVIE'];
 var apiKey = process.env.API_KEY;
+
 //webhook作成
 
 app.post('/update-issue-backlog',function(req, res){
-
+console.log(process.env);
 
 var defaultUrl = 'https://esk-sys.backlog.jp/api/v2/';
 // var action = 'issues/LW3_SHUKAN-2152'
