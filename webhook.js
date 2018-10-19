@@ -38,7 +38,6 @@ request.get(options, function(error, response, body){
 	  },
 	};
 	request.get(options, function(error, response, body){
-		console.log(JSON.parse(body));
 		var description = JSON.parse(body).description;
 		var summary = JSON.parse(body).summary;
 		if(JSON.parse(body).hasOwnProperty('assignee')){
@@ -71,7 +70,6 @@ request.get(options, function(error, response, body){
 		    			detail : backlogApiParams,
 		    			description : description,
 		    		}
-		    		console.log(params);
 				  	if(username == 'チータン'){
 				    	// Load client secrets from a local file.
 						fs.readFile('credentialsDrive.json', (err, content) => {
@@ -185,7 +183,7 @@ function createFolder(auth,params,parentId,counter){
 					} else {
 						targetDriveId = res.data.id;
 						if (counter > 2) {
-							excelProcessAction(auth,targetDriveId);
+							excelProcessAction(auth,targetDriveId,params);
 						}else{
 							counter++;
 							createFolder(auth,params,targetDriveId,counter);
