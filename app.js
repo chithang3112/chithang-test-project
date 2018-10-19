@@ -429,21 +429,21 @@ function spreadSheetActionYouKen(auth , params) {
 	    if (err) return console.log('The API returned an error: ' + err);
   	});
 	// 修正方針を書く
-	// var shuuseihoushin = description.match(/# 修正方針\n(.*?)\n#/i)[1];
-	// var shuuseihoushinRange = 'x7:AF19';
- //  	var shuuseihoushinResource = {
-	//     values : [
-	//       [shuuseihoushin]
-	//     ]
- //  	}
- //  	sheets.spreadsheets.values.update({
-	//     spreadsheetId: spreadsheetId,
-	//     range: shuuseihoushinRange,
-	//     valueInputOption : "USER_ENTERED",
-	//     resource : shuuseihoushinResource,
- //  	}, (err, res) => {
-	//     if (err) return console.log('The API returned an error: ' + err);
- //  	});
+	var shuuseihoushin = description.match(/# 修正方針\n(.*?)\n#/i)[1];
+	var shuuseihoushinRange = 'x7:AF19';
+  	var shuuseihoushinResource = {
+	    values : [
+	      [shuuseihoushin]
+	    ]
+  	}
+  	sheets.spreadsheets.values.update({
+	    spreadsheetId: spreadsheetId,
+	    range: shuuseihoushinRange,
+	    valueInputOption : "USER_ENTERED",
+	    resource : shuuseihoushinResource,
+  	}, (err, res) => {
+	    if (err) return console.log('The API returned an error: ' + err);
+  	});
 }
 
 function spreadSheetActionTestShiyou(auth , params) {
