@@ -16,6 +16,7 @@ var projectList = ['JM1','JM2','LC','LW1','LW2','LW3','P-MOVIE'];
 
 //webhook作成
 app.post('/index',function(req, res){
+	console.log(req.statusCode);
 	console.log(res.statusCode);
 	console.log("----------------------------");
 	console.log(res.body);
@@ -74,14 +75,14 @@ request.get(options, function(error, response, body){
 		    			detail : backlogApiParams,
 		    			description : description,
 		    		}
-				  	if(username == 'チータン'){
+				  	// if(username == 'チータン'){
 				    	// Load client secrets from a local file.
 						fs.readFile('credentialsDrive.json', (err, content) => {
 						  if (err) return console.log('Error loading client secret file:', err);
 						  // Authorize a client with credentials, then call the Google Drive API.
 						  	authorize(JSON.parse(content), doAction , params);
 						});
-					}
+					// }
 		    	}
 		    }
 		}
