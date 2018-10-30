@@ -69,6 +69,8 @@ request.get(options, function(error, response, body){
 		for (var i = 0; i < projectList.length; i++) { 
 		    var num = projectName.search(projectList[i]);
 		    if(num != -1){
+		    	console.log(Number.isInteger(dueDate));
+		    	console.log((new Date(dueDate)).getTime() > 0);
 		    	if(dueDate !== '' && Number.isInteger(dueDate) && (new Date(dueDate)).getTime() > 0){
 		    		dueDate = dueDate.substr(0, 4) + '/' + dueDate.substr(4);
 		    		var releaseDate = dueDate.substr(0, 7) + '/' + dueDate.substr(7);
