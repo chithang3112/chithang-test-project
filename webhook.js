@@ -66,13 +66,19 @@ request.get(options, function(error, response, body){
 		var title = summary.substring(
 		    summary.lastIndexOf("】") + 1
 		);
+		var reg = /^\d+$/;
+		var year        = dueDate.substring(0,4);
+		var month       = dueDate.substring(4,6);
+		var day         = dueDate.substring(6,8);
+
+		var date        = new Date(year, month-1, day);
 		for (var i = 0; i < projectList.length; i++) { 
 		    var num = projectName.search(projectList[i]);
 		    if(num != -1){
 		    	console.log(dueDate);
-		    	console.log(Number.isInteger(dueDate));
-		    	console.log((new Date(dueDate)).getTime() > 0);
-		    	if(dueDate !== '' && Number.isInteger(dueDate) && (new Date(dueDate)).getTime() > 0){
+		    	console.log(reg.test(dueDate));
+		    	console.log(date.getTime() > 0;
+		    	if(dueDate !== '' && reg.test(dueDate) && (date.getTime() > 0){
 		    		dueDate = dueDate.substr(0, 4) + '/' + dueDate.substr(4);
 		    		var releaseDate = dueDate.substr(0, 7) + '/' + dueDate.substr(7);
 		    		backlogApiParams = [projectList[i],releaseDate,username,title];
