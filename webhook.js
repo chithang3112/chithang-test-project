@@ -28,9 +28,11 @@ var params = '';
 // var params = '';
 var uri = defaultUrl + process.env.ACTIVITY_ACTION +'?apiKey='+process.env.API_KEY+params;
 var options = {
-  uri: uri,
-  headers: {
-  },
+  	uri: uri,
+  	headers: {
+	  	'method' : 'patch',
+	  	'contentType': 'application/x-www-form-urlencoded'
+  	},
 };
 request.get(options, function(error, response, body){
 	// console.log(JSON.parse(body)[0].content.id);
@@ -67,7 +69,7 @@ request.get(options, function(error, response, body){
 		for (var i = 0; i < projectList.length; i++) { 
 		    var num = projectName.search(projectList[i]);
 		    if(num != -1){
-		    	if(dueDate !== ''){
+		    	if(dueDate !== '' && (new Date(dueDate)).getTime() > 0){
 		    		dueDate = dueDate.substr(0, 4) + '/' + dueDate.substr(4);
 		    		var releaseDate = dueDate.substr(0, 7) + '/' + dueDate.substr(7);
 		    		backlogApiParams = [projectList[i],releaseDate,username,title];

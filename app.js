@@ -31,6 +31,8 @@ request.get(options, function(error, response, body){
 	options = {
 	  uri: uri,
 	  headers: {
+	  	'method' : 'patch',
+	  	'contentType': 'application/x-www-form-urlencoded'
 	  },
 	};
 	request.get(options, function(error, response, body){
