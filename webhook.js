@@ -77,7 +77,7 @@ request.get(options, function(error, response, body){
 		    if(num != -1){
 		    	console.log(dueDate);
 		    	console.log(reg.test(dueDate));
-		    	console.log(date.getTime() > 0;
+		    	console.log(date.getTime() > 0);
 		    	if(dueDate !== '' && reg.test(dueDate) && (date.getTime() > 0){
 		    		dueDate = dueDate.substr(0, 4) + '/' + dueDate.substr(4);
 		    		var releaseDate = dueDate.substr(0, 7) + '/' + dueDate.substr(7);
