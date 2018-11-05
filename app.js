@@ -15,7 +15,7 @@ var request = require('request');
 var apiKey = 'kZzCDStci3DETl1yaWoEWY9YWTnptueBwzv8mOdnccoAdLoR3pj47datZ2R51K5p';
 var defaultUrl = 'https://esk-sys.backlog.jp/api/v2/';
 // var action = 'issues/LW3_SHUKAN-2152'
-var action = 'projects/LW3_SHUKAN/activities';
+var action = 'projects/CHITHANG_TEST_PROJECT/activities';
 var params = '';
 // var params = '';
 var uri = defaultUrl + action +'?apiKey='+apiKey+params;
@@ -25,9 +25,11 @@ var options = {
   },
 };
 request.get(options, function(error, response, body){
-	let issueId = JSON.parse(body)[1].content.id;
+	// console.log(JSON.parse(body)[0].content.changes);
+	var changeEvents = JSON.parse(body)[0].content.changes;
+	let issueId = JSON.parse(body)[0].content.id;
 	action = 'issues/'+issueId;
-	uri = defaultUrl + action +'?apiKey='+apiKey+params;
+	uri = defaultUrl + action +'?apiKey='+apiKey;
 	options = {
 	  uri: uri,
 	  headers: {
@@ -35,46 +37,111 @@ request.get(options, function(error, response, body){
 	  	'contentType': 'application/x-www-form-urlencoded'
 	  },
 	};
+
 	request.get(options, function(error, response, body){
-		console.log(JSON.parse(body));
+		// console.log(JSON.parse(body));
+		var description = JSON.parse(body).description;
 		var summary = JSON.parse(body).summary;
-		var username = JSON.parse(body).assignee.name;
+		if(JSON.parse(body).hasOwnProperty('assignee')){
+			if(JSON.parse(body).assignee != null){
+	        	var username = JSON.parse(body).assignee.name;
+	    	}
+	    }else{
+	    	username = '';
+	    }
+		
 		var projectName = summary.substring(
 		    summary.lastIndexOf("[") + 1, 
 		    summary.lastIndexOf("]")
 		);
-		var dueDate = summary.substring(
-		    summary.lastIndexOf("【") + 4, 
-		    summary.lastIndexOf("】")
-		);
+		
+		var releaseDate = JSON.parse(body).dueDate;
 		var title = summary.substring(
 		    summary.lastIndexOf("】") + 1
 		);
-		var description = JSON.parse(body).description;
+		
 		for (var i = 0; i < projectList.length; i++) { 
 		    var num = projectName.search(projectList[i]);
 		    if(num != -1){
-		    	if(dueDate !== ''){
-		    		dueDate = dueDate.substr(0, 4) + '/' + dueDate.substr(4);
-		    		var releaseDate = dueDate.substr(0, 7) + '/' + dueDate.substr(7);
-		    		backlogApiParams = [projectList[i],releaseDate,username,title];
-		    		var params = {
-		    			detail : backlogApiParams,
-		    			description : description,
-		    		}
-			    	// Load client secrets from a local file.
-					fs.readFile('credentialsDrive.json', (err, content) => {
-					  if (err) return console.log('Error loading client secret file:', err);
-					  // Authorize a client with credentials, then call the Google Drive API.
-					  authorize(JSON.parse(content), doAction , params);
-					});
-		    	}
+				if(releaseDate !== null){
+				  	if(username !== undefined){
+					var date = new Date(releaseDate);
+		    		var dueDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' +  date.getDate();
+		    		changeEvents.forEach(function(changeEvent){
+			    		if(changeEvent.old_value != '' && changeEvent.new_value != ''){
+			    			var params = {
+				    			changeEvent : changeEvent,
+				    			name : projectList[i],
+				    			dueDate : dueDate,
+				    		}
+			    			fs.readFile('credentialsDrive.json', (err, content) => {
+							  	if (err) return console.log('Error loading client secret file:', err);
+							  // Authorize a client with credentials, then call the Google Drive API.
+							  	// authorize(JSON.parse(content), findFolder , params);
+							});
+						}else{
+				    		backlogApiParams = [projectList[i],dueDate,username,title];
+				    		var params = {
+				    			detail : backlogApiParams,
+				    			description : description,
+				    		}
+				    		console.log(username);
+						    	// Load client secrets from a local file.
+								fs.readFile('credentialsDrive.json', (err, content) => {
+								  if (err) return console.log('Error loading client secret file:', err);
+								  // Authorize a client with credentials, then call the Google Drive API.
+								  	authorize(JSON.parse(content), doAction , params);
+								});
+							}
+						});
+					}
+				}
 		    }
 		}
 	});
 });
 
-
+function findFolder(auth,params) {
+	const drive = google.drive({version: 'v3', auth});
+	switch(params.changeEvent.field){
+		case 'assigner':
+			var array = [params.name,params.dueDate,params.changeEvent.new_value];
+			var id = '153LpowIJg8ycbYujowx8k1WLTV2GZhkF';
+			for (var i = 0; i < array.length; i++) {
+				drive.files.list({
+					q: 'mimeType = "application/vnd.google-apps.folder" and name = "' + array[i] + '" and "'+ id +'" in parents',
+				}, function (err, res) {
+					if (err) {
+					  	// Handle error
+					  	console.error(err);
+					} else {
+						id = res.data.files[0].id;
+						//move file
+					}
+				});
+			}
+			break;
+		case 'limitDate':
+			var array = [params.name,params.changeEvent.new_value];
+			var id = '153LpowIJg8ycbYujowx8k1WLTV2GZhkF';
+			for (var i = 0; i < array.length; i++) {
+				drive.files.list({
+					q: 'mimeType = "application/vnd.google-apps.folder" and name = "' + array[i] + '" and "'+ id +'" in parents',
+				}, function (err, res) {
+					if (err) {
+					  	// Handle error
+					  	console.error(err);
+					} else {
+						id = res.data.files[0].id;
+						// move file
+					}
+				});
+			}
+			break;
+		default:
+			break;
+	}
+}
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -173,7 +240,7 @@ function createFolder(auth,params,parentId,counter){
 					} else {
 						targetDriveId = res.data.id;
 						if (counter > 2) {
-							excelProcessAction(auth,targetDriveId);
+							excelProcessAction(auth,targetDriveId,params);
 						}else{
 							counter++;
 							createFolder(auth,params,targetDriveId,counter);

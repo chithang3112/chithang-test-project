@@ -9,7 +9,9 @@ const {google} = require('googleapis');
 const SCOPES = ['https://www.googleapis.com/auth/drive'];
 const TOKEN_PATH = 'token.json';
 let PORT = process.env.PORT || 80;
-
+let ACTION = process.env.ACTIVITY_ACTION || 'projects/CHITHANG_TEST_PROJECT/activities';
+let APIKEY = process.env.API_KEY || 'kZzCDStci3DETl1yaWoEWY9YWTnptueBwzv8mOdnccoAdLoR3pj47datZ2R51K5p';
+let DRIVEFOLDER = process.env.DRIVE_FOLDER || '153LpowIJg8ycbYujowx8k1WLTV2GZhkF';
 var app = express();
 var httpServer = http.createServer(app);
 var projectList = ['JM1','JM2','LC','LW1','LW2','LW3','P-MOVIE'];
@@ -26,7 +28,7 @@ var defaultUrl = 'https://esk-sys.backlog.jp/api/v2/';
 // var action = 'issues/LW3_SHUKAN-2152'
 var params = '';
 // var params = '';
-var uri = defaultUrl + process.env.ACTIVITY_ACTION +'?apiKey='+process.env.API_KEY+params;
+var uri = defaultUrl + ACTION +'?apiKey=' + APIKEY + params;
 var options = {
   	uri: uri,
   	headers: {
@@ -36,6 +38,21 @@ var options = {
 };
 request.get(options, function(error, response, body){
 	// console.log(JSON.parse(body)[0].content.id);
+	var changeEvents = JSON.parse(body)[0].content.changes;
+	var mode = [];
+	changeEvents.forEach(function(changeEvent){
+		switch(changeEvent.field){
+			case 'assigner':
+				mode.push('assigner');
+				break;
+			case 'limitDate':
+				mode.push('limitDate');
+				break;
+			default:
+				mode.push('normal');
+				break;
+		}
+	});
 	let issueId = JSON.parse(body)[0].content.id;
 	action = 'issues/'+issueId;
 	uri = defaultUrl + action +'?apiKey='+process.env.API_KEY+params;
@@ -45,6 +62,21 @@ request.get(options, function(error, response, body){
 	  },
 	};
 	request.get(options, function(error, response, body){
+		// console.log(JSON.parse(body)[0].content.changes);
+	var changeEvents = JSON.parse(body)[0].content.changes;
+	let issueId = JSON.parse(body)[0].content.id;
+	action = 'issues/'+issueId;
+	uri = defaultUrl + action +'?apiKey='+apiKey;
+	options = {
+	  uri: uri,
+	  headers: {
+	  	'method' : 'patch',
+	  	'contentType': 'application/x-www-form-urlencoded'
+	  },
+	};
+
+	request.get(options, function(error, response, body){
+		// console.log(JSON.parse(body));
 		var description = JSON.parse(body).description;
 		var summary = JSON.parse(body).summary;
 		if(JSON.parse(body).hasOwnProperty('assignee')){
@@ -59,42 +91,48 @@ request.get(options, function(error, response, body){
 		    summary.lastIndexOf("[") + 1, 
 		    summary.lastIndexOf("]")
 		);
-		var dueDate = summary.substring(
-		    summary.lastIndexOf("【") + 4, 
-		    summary.lastIndexOf("】")
-		);
+		
+		var releaseDate = JSON.parse(body).dueDate;
 		var title = summary.substring(
 		    summary.lastIndexOf("】") + 1
 		);
-		var reg = /^\d+$/;
-		var year        = dueDate.substring(0,4);
-		var month       = dueDate.substring(4,6);
-		var day         = dueDate.substring(6,8);
-
-		var date        = new Date(year, month-1, day);
+		
 		for (var i = 0; i < projectList.length; i++) { 
 		    var num = projectName.search(projectList[i]);
 		    if(num != -1){
-		    	console.log(date);
-		    	console.log(reg.test(dueDate));
-		    	console.log(date.getTime() > 0);
-		    	if(dueDate !== '' && reg.test(dueDate) && date.getTime() > 0){
-		    		dueDate = dueDate.substr(0, 4) + '/' + dueDate.substr(4);
-		    		var releaseDate = dueDate.substr(0, 7) + '/' + dueDate.substr(7);
-		    		backlogApiParams = [projectList[i],releaseDate,username,title];
-		    		var params = {
-		    			detail : backlogApiParams,
-		    			description : description,
-		    		}
-				  	// if(username == 'チータン'){
-				    	// Load client secrets from a local file.
-						fs.readFile('credentialsDrive.json', (err, content) => {
-						  if (err) return console.log('Error loading client secret file:', err);
-						  // Authorize a client with credentials, then call the Google Drive API.
-						  	authorize(JSON.parse(content), doAction , params);
+				if(releaseDate !== null){
+				  	if(username !== undefined){
+					var date = new Date(releaseDate);
+		    		var dueDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' +  date.getDate();
+		    		changeEvents.forEach(function(changeEvent){
+			    		if(changeEvent.old_value != '' && changeEvent.new_value != ''){
+			    			var params = {
+				    			changeEvent : changeEvent,
+				    			name : projectList[i],
+				    			dueDate : dueDate,
+				    		}
+			    			fs.readFile('credentialsDrive.json', (err, content) => {
+							  	if (err) return console.log('Error loading client secret file:', err);
+							  // Authorize a client with credentials, then call the Google Drive API.
+							  	// authorize(JSON.parse(content), findFolder , params);
+							});
+						}else{
+				    		backlogApiParams = [projectList[i],dueDate,username,title];
+				    		var params = {
+				    			detail : backlogApiParams,
+				    			description : description,
+				    		}
+				    		console.log(username);
+						    	// Load client secrets from a local file.
+								fs.readFile('credentialsDrive.json', (err, content) => {
+								  if (err) return console.log('Error loading client secret file:', err);
+								  // Authorize a client with credentials, then call the Google Drive API.
+								  	authorize(JSON.parse(content), doAction , params);
+								});
+							}
 						});
-					// }
-		    	}
+					}
+				}
 		    }
 		}
 	});
@@ -156,7 +194,7 @@ function getAccessToken(oAuth2Client, callback) {
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 function doAction(auth,params) {
-	var parentId = process.env.DRIVE_FOLDER;
+	var parentId = DRIVEFOLDER;
 	var counter = 0;
 	createFolder(auth,params,parentId,counter);
 }
