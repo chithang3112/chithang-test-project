@@ -5,7 +5,7 @@
   "main": "webhook.js",
   "dependencies": {
     "express": "^4.16.3",
-    "googleapis": "^45.0.0",
+    "googleapis": "^79.0.0",
     "request": "^2.88.0"
   },
   "devDependencies": {},
