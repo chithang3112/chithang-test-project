@@ -10,5 +10,4 @@ jobs:
 
     steps:
       - checkout
-      - run: chmod +x
       - run: .circleci/run_phpcs.sh
