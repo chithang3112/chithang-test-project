@@ -10,7 +10,7 @@ readonly GITHUB_REPOSITORY="chithang3112/chithang-test-project"
 # https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#ignoring-files-and-folders
 readonly IGNORE="tests/*,web/js/react_component/*\.js"
 
-
+echo "$CIRCLE_PULL_REQUEST"
 # PullRequestが存在しなければexit 
 if [ -z "$CIRCLE_PULL_REQUEST" ]; then
   echo "Pull request does not exist."
