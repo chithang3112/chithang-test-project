@@ -58,7 +58,7 @@ curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.s
 
 # developブランチと差分があるファイルだけphpcsを走らせる
 target_files=""
-files=$(git diff --name-only remotes/origin/develop $CIRCLE_BRANCH)
+files=$(git diff --name-only remotes/origin/master $CIRCLE_BRANCH)
 while read line ; do
   # 上記のgit diffでは削除されたファイル名も出力されるため、それらはここで取り除く
   if [ -e "$line" ]; then
