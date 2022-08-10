@@ -9,7 +9,7 @@ readonly GITHUB_REPOSITORY="chithang3112/chithang-test-project"
 # phpcsの実行を除外するファイル・ディレクトリ。複数指定する際はコンマ区切りで記述（以下参照）
 # https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#ignoring-files-and-folders
 readonly IGNORE="tests/*,web/js/react_component/*\.js"
-
+echo "run test"
 echo "$CIRCLE_PULL_REQUEST"
 # PullRequestが存在しなければexit 
 if [ -z "$CIRCLE_PULL_REQUEST" ]; then
