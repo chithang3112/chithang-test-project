@@ -5,12 +5,12 @@
 # CircleCIの当該プロジェクトのProject Settings > Environment Variables で GITHUB_ACCESS_TOKEN, REVIEWDOG_GITHUB_API_TOKEN の２つの定数の値に設定
 
 # GitHubのリポジトリ
-readonly GITHUB_REPOSITORY="proseeds/learningware"
+readonly GITHUB_REPOSITORY="chithang3112/chithang-test-project"
 # phpcsの実行を除外するファイル・ディレクトリ。複数指定する際はコンマ区切りで記述（以下参照）
 # https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#ignoring-files-and-folders
 readonly IGNORE="tests/*,web/js/react_component/*\.js"
-
-
+echo "run test"
+echo "$CIRCLE_PULL_REQUEST"
 # PullRequestが存在しなければexit 
 if [ -z "$CIRCLE_PULL_REQUEST" ]; then
   echo "Pull request does not exist."
@@ -38,8 +38,8 @@ fi
 
 # PullRequestのbaseブランチがdevelopでなければexit
 pr_base_branch=$(echo $body | jq -r '.base.ref')
-if [ ! "$pr_base_branch" = "develop" ]; then
-  echo "This is not a pull request of which base branch is 'develop'."
+if [ ! "$pr_base_branch" = "master" ]; then
+  echo "This is not a pull request of which base branch is 'master'."
   exit 0
 fi
 
@@ -58,7 +58,7 @@ curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.s
 
 # developブランチと差分があるファイルだけphpcsを走らせる
 target_files=""
-files=$(git diff --name-only remotes/origin/develop $CIRCLE_BRANCH)
+files=$(git diff --name-only remotes/origin/master $CIRCLE_BRANCH)
 while read line ; do
   # 上記のgit diffでは削除されたファイル名も出力されるため、それらはここで取り除く
   if [ -e "$line" ]; then
