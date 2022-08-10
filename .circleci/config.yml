@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.4-browsers-legacy
+        environment:
+          PAGER: ""
+
+    working_directory: ~/app
+
+    steps:
+      - checkout
+      - run: .circleci/run_phpcs.sh
