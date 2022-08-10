@@ -38,8 +38,8 @@ fi
 
 # PullRequestのbaseブランチがdevelopでなければexit
 pr_base_branch=$(echo $body | jq -r '.base.ref')
-if [ ! "$pr_base_branch" = "develop" ]; then
-  echo "This is not a pull request of which base branch is 'develop'."
+if [ ! "$pr_base_branch" = "master" ]; then
+  echo "This is not a pull request of which base branch is 'master'."
   exit 0
 fi
 
