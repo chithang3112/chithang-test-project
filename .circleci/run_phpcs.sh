@@ -5,7 +5,7 @@
 # CircleCIの当該プロジェクトのProject Settings > Environment Variables で GITHUB_ACCESS_TOKEN, REVIEWDOG_GITHUB_API_TOKEN の２つの定数の値に設定
 
 # GitHubのリポジトリ
-readonly GITHUB_REPOSITORY="chithang/chithang-test-project"
+readonly GITHUB_REPOSITORY="chithang3112/chithang-test-project"
 # phpcsの実行を除外するファイル・ディレクトリ。複数指定する際はコンマ区切りで記述（以下参照）
 # https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#ignoring-files-and-folders
 readonly IGNORE="tests/*,web/js/react_component/*\.js"
