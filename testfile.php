@@ -230,8 +230,7 @@ class FaceRecognitionController extends Controller
 
             $validateResult = $resetFace->validateCode($inputVerificationCode);
 
-            if ($validateResult == FaceVerification::VALIDATE_SUCCESS) {
-                $user = User::findOne($userId);
+            if ($validateResult == FaceVerification::VALIDATE_SUCCESS){                $user = User::findOne($userId);
                 $faceApi = new FaceRequest();
                 $faceApi->deletePerson($faceApi->convertTenantUniqueId(), $user->face_person_id);
                 $user->face_person_id = '';
